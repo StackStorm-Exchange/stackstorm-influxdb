@@ -1,0 +1,12 @@
+---
+ref: influxdb
+name: influxdb
+description: StackStorm integration pack for InfluxDB
+keywords: 
+    - influxdb
+    - influx
+    - database
+    - timeseries
+version: 0.1.0
+author: Encore Technologies
+email: code@encore.tech
