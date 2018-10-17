@@ -1,0 +1,66 @@
+---
+description: "Query data and manage databases,retention policies and users. https://docs.influxdata.com/influxdb/latest/tools/api/#query-string-parameters-1"
+enabled: true
+name: query
+pack: influxdb
+runner_type: python-script
+entry_point: lib/query.py
+parameters:
+  query:
+    type: string
+    description: >
+      Query string in InfluxQL syntax:
+      https://docs.influxdata.com/influxdb/latest/query_language/
+  chunked:
+    type: integer
+    description: >
+      Returns points in streamed batches instead of in a single response.
+      If set to a specific value, InfluxDB chunks responses by series or by that number
+      of points.
+  database:
+    type: string
+    description: >
+      Sets the target database for the query.
+      Required for database-dependent queries (most SELECT queries and SHOW queries
+      require this parameter).
+  epoch:
+    type: string
+    description: >
+      Returns epoch timestamps with the specified precision [ns,u,ms,s,m,h].
+      By default, InfluxDB returns timestamps in RFC3339 format with nanosecond precision.
+  method:
+    type: string
+    description: >
+      Name of HTTP method to use for the call.
+       GET - Use for all queries that start with: SELECT, SHOW
+             The only exceptions are SELECT queries that include an INTO clause.
+             Those SELECT queries require a POST request.
+       POST - Use for all queries taht start with: ALTER, CREATE, DELETE, DROP, GRANT, KILL, REVOKE
+       
+      Note: We try to auto-detect this by checking the <query> parameter using .startswith().
+            Since this is not always perfect, we allow the user to override and specify their
+            own method.
+  ### Begin common options
+  server:
+    type: string
+    description: "Hostname/IP address of the server. Overrides the setting in the pack's config."
+  port:
+    type: integer
+    description: "Port number to connect to InfluxDB on. Overrides the setting in the pack's config."
+  ssl:
+    type: boolean
+    description: "Use SSL/HTTPS. Overrides the setting in the pack's config."
+  verify_ssl:
+    type: boolean
+    description: "Verify remote host SSL certificates. Overrides the setting in the pack's config."
+  credentials:
+    type: string
+    description: "Name of the credentials object to use from the config"
+    default: "default"
+  username:
+    type: string
+    description: "User to authenticate as. Overrides the <credentials> parameter"
+  password:
+    type: string
+    description: "Password to authenticate with. Overrides the <credentials> parameter"
+    secret: true
