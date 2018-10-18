@@ -27,11 +27,20 @@ class BaseAction(Action):
             return kwargs
 
         # get the name of credentials asked for during action invocation
-        cred_name = kwargs.get('credentials', 'default')
+        cred_name = kwargs.get('credentials')
 
-        # if we couldn't find the credential in the config (by name), then raise an error
-        if cred_name not in self.config['credentials']:
-            raise ValueError('Unable to find credentials in config: {}'.format(cred_name))
+        # if we couldn't find the 'credentials' from the parameters in the config
+        # then try to use the default credential
+        if not cred_name or cred_name not in self.config['credentials']:
+            self.logger.debug('Credential [{}] is not in the config, trying [default]'
+                              .format(cred_name))
+
+            # if we couldn't find the default credential in the config (by name),
+            # then raise an error
+            cred_name = 'default'
+            if cred_name not in self.config['credentials']:
+                raise ValueError('Unable to find credentials [{}] or [default] in config'
+                                 .format(kwargs.get('credentials')))
 
         # lookup the credential by name
         credentials = self.config['credentials'][cred_name]
