@@ -39,7 +39,7 @@ class QueryAction(BaseAction):
 
         # chunked
         is_chunked = (chunked > 0)
-        chunked_size = chunked
+        chunk_size = chunked
 
         # method
         if not method:
@@ -50,7 +50,7 @@ class QueryAction(BaseAction):
                                   database=database,
                                   epoch=epoch,
                                   chunked=is_chunked,
-                                  chunked_size=chunked_size,
+                                  chunk_size=chunked_size,
                                   method=method)
         result_set = self.ensure_list(result_set)
 
