@@ -50,7 +50,7 @@ class QueryAction(BaseAction):
                                   database=database,
                                   epoch=epoch,
                                   chunked=is_chunked,
-                                  chunk_size=chunked_size,
+                                  chunk_size=chunk_size,
                                   method=method)
         result_set = self.ensure_list(result_set)
 
