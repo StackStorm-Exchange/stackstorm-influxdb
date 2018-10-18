@@ -6,6 +6,8 @@
 from st2common.runners.base_action import Action
 from influxdb import InfluxDBClient
 
+import six
+
 # options for login credentials in the config
 CREDENTIALS_OPTIONS = [
     'credentials',

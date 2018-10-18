@@ -21,13 +21,13 @@ class QueryAction(BaseAction):
             method = "GET"
         # test for a list of strings that it may start with. do this using a tuple
         # https://stackoverflow.com/questions/20461847/str-startswith-with-a-list-of-strings-to-test-for
-        elif quuery_lower.startswith(tuple(["alter ",
-                                            "create ",
-                                            "delete ",
-                                            "drop ",
-                                            "grant ",
-                                            "kill ",
-                                            "revoke "])):
+        elif query_lower.startswith(tuple(["alter ",
+                                           "create ",
+                                           "delete ",
+                                           "drop ",
+                                           "grant ",
+                                           "kill ",
+                                           "revoke "])):
             method = "POST"
         else:
             raise ValueError("Couldn't auto-detect the method for the query: {}".format(query))
@@ -46,9 +46,9 @@ class QueryAction(BaseAction):
             method = self.detect_query_method(query)
 
         # execute query
-        result_set = client.query(kwargs['query'],
+        result_set = client.query(query,
                                   database=database,
-                                  epoch=kwargs['epoch'],
+                                  epoch=epoch,
                                   chunked=is_chunked,
                                   chunked_size=chunked_size,
                                   method=method)
