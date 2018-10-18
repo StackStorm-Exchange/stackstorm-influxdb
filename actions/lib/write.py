@@ -12,7 +12,7 @@ class WriteAction(BaseAction):
         else:
             data = points
             protocol = 'json'
-        return client.write_points(points,
+        return client.write_points(data,
                                    time_precision=precision,
                                    database=database,
                                    retention_policy=retention_policy,
