@@ -55,4 +55,4 @@ class QueryAction(BaseAction):
         result_set = self.ensure_list(result_set)
 
         # return the "raw" JSON/dict from each ResultSet object
-        return [r.raw() for r in result_set]
+        return [r.raw for r in result_set]
