@@ -2,8 +2,6 @@ from influxdb_base_action_test_case import InfluxDBBaseActionTestCase
 from lib.base_action import BaseAction
 from st2common.runners.base_action import Action
 
-import mock
-
 
 class TestActionLibBaseAction(InfluxDBBaseActionTestCase):
     __test__ = True
