@@ -1,0 +1,32 @@
+---
+description: "Use this endpoint to check the status of your InfluxDB instance and your version of InfluxDB. https://docs.influxdata.com/influxdb/latest/tools/api/#ping-http-endpoint"
+enabled: true
+name: ping
+pack: influxdb
+runner_type: python-script
+entry_point: lib/ping.py
+parameters:
+  ### Begin common options
+  server:
+    type: string
+    description: "Hostname/IP address of the server. Overrides the setting in the pack's config."
+  port:
+    type: integer
+    description: "Port number to connect to InfluxDB on. Overrides the setting in the pack's config."
+  ssl:
+    type: boolean
+    description: "Use SSL/HTTPS. Overrides the setting in the pack's config."
+  verify_ssl:
+    type: boolean
+    description: "Verify remote host SSL certificates. Overrides the setting in the pack's config."
+  credentials:
+    type: string
+    description: "Name of the credentials object to use from the config"
+    default: "default"
+  username:
+    type: string
+    description: "User to authenticate as. Overrides the <credentials> parameter"
+  password:
+    type: string
+    description: "Password to authenticate with. Overrides the <credentials> parameter"
+    secret: true
