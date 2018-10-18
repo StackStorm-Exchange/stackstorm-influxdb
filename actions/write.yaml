@@ -1,0 +1,81 @@
+---
+description: "Use this endpoint to write data to a pre-existing database. https://docs.influxdata.com/influxdb/latest/tools/api/#write-http-endpoint"
+enabled: true
+name: write
+pack: influxdb
+runner_type: python-script
+entry_point: lib/write.py
+parameters:
+  points:
+    type: array
+    items:
+      type: object
+    description: >
+      Array of data points to write to the database.
+      Each point should have the following format:
+
+        parameters:
+          measurement:
+            type: string
+            description:
+              Name of the measurement
+          tags:
+            type: object
+            description:
+              Object containing tags where the key is the tag name and the value
+              is the tag value.
+          time:
+            type: string or integer
+            description:
+              Can either be the timestamp string (ISO format) or an integer
+              containing the epoch time.
+          fields:
+            type: object
+            description:
+              Object containing field values where the field name is the key
+              and the value is the data.
+  points_raw:
+    type: string
+    description: >-
+      Raw string of data points in the Line Protocol Format:
+      https://docs.influxdata.com/influxdb/latest/concepts/glossary/#line-protocol
+
+      If specified, then the <points> parameter will be ignored
+  database:
+    type: string
+    description: >
+      Sets the target database for the write.
+  precision:
+    type: string
+    description: >
+      Sets the precision for the supplied Unix time values. [ns,u,ms,s,m,h]
+      InfluxDB assumes that timestamps are in nanoseconds if you do not specify precision.
+  retention_policy:
+    type: string
+    description: >
+      Sets the target retention policy for the write. InfluxDB writes to the DEFAULT
+      retention policy if you do not specify a retention policy.
+  ### Begin common options
+  server:
+    type: string
+    description: "Hostname/IP address of the server. Overrides the setting in the pack's config."
+  port:
+    type: integer
+    description: "Port number to connect to InfluxDB on. Overrides the setting in the pack's config."
+  ssl:
+    type: boolean
+    description: "Use SSL/HTTPS. Overrides the setting in the pack's config."
+  verify_ssl:
+    type: boolean
+    description: "Verify remote host SSL certificates. Overrides the setting in the pack's config."
+  credentials:
+    type: string
+    description: "Name of the credentials object to use from the config"
+    default: "default"
+  username:
+    type: string
+    description: "User to authenticate as. Overrides the <credentials> parameter"
+  password:
+    type: string
+    description: "Password to authenticate with. Overrides the <credentials> parameter"
+    secret: true
