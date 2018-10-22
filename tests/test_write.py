@@ -23,8 +23,10 @@ class TestActionLibWriteAction(InfluxDBBaseActionTestCase):
         mock_client.write_points.return_value = 'expected'
         mock_make_client.return_value = mock_client
 
-        points_raw = ('weather,location=us-midwest,season=summer temperature=82 1465839830100400200\n'
-                      'weather,location=us-east,season=winter temperature=99 1465839830100400202')
+        points_raw = ('weather,location=us-midwest,season=summer temperature=82'
+                      ' 1465839830100400200\n'
+                      'weather,location=us-east,season=winter temperature=99'
+                      ' 1465839830100400202')
 
         # run
         result = action.run(points=None,
@@ -35,8 +37,10 @@ class TestActionLibWriteAction(InfluxDBBaseActionTestCase):
 
         # assert
         self.assertEquals(result, 'expected')
-        points_list = ['weather,location=us-midwest,season=summer temperature=82 1465839830100400200',
-                       'weather,location=us-east,season=winter temperature=99 1465839830100400202']
+        points_list = ['weather,location=us-midwest,season=summer temperature=82'
+                       ' 1465839830100400200',
+                       'weather,location=us-east,season=winter temperature=99'
+                       ' 1465839830100400202']
         mock_client.write_points.assert_called_with(points_list,
                                                     time_precision='s',
                                                     database='database',
