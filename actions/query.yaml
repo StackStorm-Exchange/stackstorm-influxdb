@@ -17,6 +17,7 @@ parameters:
       Returns points in streamed batches instead of in a single response.
       If set to a specific value, InfluxDB chunks responses by series or by that number
       of points.
+    default: 0
   database:
     type: string
     description: >

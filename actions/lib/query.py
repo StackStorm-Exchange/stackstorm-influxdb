@@ -34,12 +34,21 @@ class QueryAction(BaseAction):
 
         return method
 
+    def extract_results(self, result_set):
+        # return the "raw" JSON/dict from each ResultSet object
+        result_set = self.ensure_list(result_set)
+        return [r.raw for r in result_set]
+
     def run(self, query, chunked, database, epoch, method, **kwargs):
         client = self.make_client(**kwargs)
 
         # chunked
-        is_chunked = (chunked > 0)
-        chunk_size = chunked
+        if not chunked:
+            is_chunked = False
+            chunk_size = 0
+        else:
+            is_chunked = (chunked > 0)
+            chunk_size = chunked
 
         # method
         if not method:
@@ -52,7 +61,4 @@ class QueryAction(BaseAction):
                                   chunked=is_chunked,
                                   chunk_size=chunk_size,
                                   method=method)
-        result_set = self.ensure_list(result_set)
-
-        # return the "raw" JSON/dict from each ResultSet object
-        return [r.raw for r in result_set]
+        return self.extract_results(result_set)
