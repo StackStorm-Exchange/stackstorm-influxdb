@@ -1,4 +1,5 @@
 from influxdb_base_action_test_case import InfluxDBBaseActionTestCase
+from influxdb import InfluxDBClient
 from lib.base_action import BaseAction
 from st2common.runners.base_action import Action
 
@@ -46,7 +47,7 @@ class TestActionLibBaseAction(InfluxDBBaseActionTestCase):
         with self.assertRaises(ValueError):
             action.resolve_credentials(credentials='doesnt_exist')
 
-    def test_resolve_credentials_no_kwargs_credentials_and_no_default_raises(self):
+    def test_resolve_credentials_0no_kwargs_credentials_and_no_default_raises(self):
         action = self.get_action_instance({})
         action.config = {
             'credentials': {
@@ -139,3 +140,35 @@ class TestActionLibBaseAction(InfluxDBBaseActionTestCase):
         action.config = {'server': None}
         result = action.resolve_config()
         self.assertEquals(result, {})
+
+    def test_make_client(self):
+        action = self.get_action_instance({})
+        result = action.make_client(server='influxdb.domain.tld',
+                                    port=8086,
+                                    username='user',
+                                    password='pass',
+                                    ssl=True,
+                                    verify_ssl=False)
+        self.assertIsInstance(result, InfluxDBClient)
+        self.assertEquals(result._host, 'influxdb.domain.tld')
+        self.assertEquals(result._port, 8086)
+        self.assertEquals(result._username, 'user')
+        self.assertEquals(result._password, 'pass')
+        self.assertEquals(result._scheme, 'https')
+        self.assertEquals(result._verify_ssl, False)
+
+    def test_ensure_list_given_non_list(self):
+        action = self.get_action_instance({})
+        result = action.ensure_list('abc')
+        self.assertEquals(result, ['abc'])
+
+    def test_ensure_list_given_list(self):
+        action = self.get_action_instance({})
+        data = [1]
+        result = action.ensure_list(data)
+        self.assertIs(result, data)
+
+    def test_run(self):
+        action = self.get_action_instance({})
+        with self.assertRaises(NotImplementedError):
+            action.run()
