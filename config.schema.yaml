@@ -1,0 +1,28 @@
+---
+server:
+  type: string
+  description: "Hostname/IP address of the server"
+port:
+  type: integer
+  description: "Port number to connect to InfluxDB on"
+  default: 8086
+ssl:
+  type: boolean
+  description: "Use SSL/HTTPS"
+  default: true
+verify_ssl:
+  type: boolean
+  description: "Verify remote host SSL certificates"
+  default: true
+
+credentials:
+  type: object
+  description: "Mapping of name to an object containing credential information"
+  properties:
+    username:
+      type: string
+      description: "User to authenticate as"
+    password:
+      type: string
+      description: "Password to authenticate with"
+      secret: true

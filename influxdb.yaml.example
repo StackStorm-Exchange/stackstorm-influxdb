@@ -1,0 +1,7 @@
+---
+server: influxdb.domain.tld
+
+credentials:
+  default:
+    username: user1
+    password: $ecret1
