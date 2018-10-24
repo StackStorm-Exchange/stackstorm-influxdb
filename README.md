@@ -1,3 +1,5 @@
+[![Build Status](https://circleci.com/gh/StackStorm-Exchange/stackstorm-influxdb.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/StackStorm-Exchange/stackstorm-influxdb) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 # InfluxDB Integration Pack
 
 This pack interfaces with the [InfluxDB](https://www.influxdata.com/time-series-platform/influxdb/) REST [API](https://docs.influxdata.com/influxdb/latest/tools/api).
