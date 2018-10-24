@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+env/
 build/
 develop-eggs/
 dist/
@@ -104,3 +105,12 @@ venv.bak/
 
 # Ignore the continuous integration directory
 ci/
+
+# Mr Developer
+.idea
+.DS_Store
+._*
+.vscode
+*.sublime-project
+*.sublime-workspace# PyCharm
+.idea
